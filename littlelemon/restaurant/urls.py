@@ -1,15 +1,13 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from . import views
+
+from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
 
             path("",views.index,name="home"),
-            #path("about/",views.about,name="about"),
-            #path("book/",views.book,name="book"),
-            #path("menu/",views.menu,name="menu"),
-            #path("menu_item/<int:pk>/",views.display_menu_item,name="menu_item"),
-
-            path('', views.sayHello, name='sayHello'),
-
-
+            path('menu/', views.MenuItemsView.as_view(),name='menu-list'),
+            path('menu/<int:pk>', views.SingleMenuItemView.as_view()),
+            path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+           
 ]
